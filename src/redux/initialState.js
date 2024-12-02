@@ -1,49 +1,58 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import { loadFromLocalStorage, saveToLocalStorage } from "../localStorageUtils";
 
-import { loadFromLocalStorage, saveToLocalStorage } from '../localStorageUtils';
-
-const initialState = loadFromLocalStorage('projectData') || {
+const initialState = loadFromLocalStorage("projectData") || {
   boards: [
-    { id: '1', title: 'To Do' },
-    { id: '2', title: 'In Progress' },
-    { id: '3', title: 'Done' },
+    { id: "1", title: "To Do" },
+    { id: "2", title: "In Progress" },
+    { id: "3", title: "Done" },
   ],
-  tasks: [
-    { id: '101', title: 'Task 1', description: 'Description 1', deadline: '', assignedTo: '', boardId: '1' },
-    { id: '102', title: 'Task 2', description: 'Description 2', deadline: '', assignedTo: '', boardId: '2' },
-  ],
+  tasks: [],
+  selectedTasks: [],
 };
 
 const tasksCreation = createSlice({
-  name: 'tasks',
+  name: "tasks",
   initialState,
   reducers: {
     addTask: (state, action) => {
       state.tasks.push(action.payload);
-      saveToLocalStorage('projectData', state);
+      saveToLocalStorage("projectData", state);
     },
     editTask: (state, action) => {
       const { taskId, updatedTask } = action.payload;
-      const taskIndex = state.tasks.findIndex((task) => task.id === taskId);
-      if (taskIndex !== -1) {
-        state.tasks[taskIndex] = { ...state.tasks[taskIndex], ...updatedTask };
-        saveToLocalStorage('projectData', state);
+      const index = state.tasks.findIndex((task) => task.id === taskId);
+      if (index !== -1) {
+        state.tasks[index] = updatedTask;
+        state.tasks[index].completed = false;
+        saveToLocalStorage("projectData", state);
       }
     },
     deleteTask: (state, action) => {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
-      saveToLocalStorage('projectData', state);
+      saveToLocalStorage("projectData", state);
     },
-    moveTask: (state, action) => {
-      const { taskId, destinationBoardId } = action.payload;
-      const task = state.tasks.find((t) => t.id === taskId);
-      if (task) {
-        task.boardId = destinationBoardId;
-        saveToLocalStorage('projectData', state);
+    updateTaskBoard: (state, action) => {
+      const { taskId, newBoardId } = action.payload;
+      const task = state.tasks.find((task) => task.id === taskId);
+      if (task && task.boardId !== newBoardId) {
+        task.boardId = newBoardId;
+        saveToLocalStorage("projectData", state);
       }
+    },
+
+    setSelectedTasks: (state, action) => {
+      state.selectedTasks = action.payload;
     },
   },
 });
 
-export const { addTask, editTask, deleteTask, moveTask } = tasksCreation.actions;
+export const {
+  addTask,
+  editTask,
+  deleteTask,
+  updateTaskBoard,
+  setSelectedTasks,
+} = tasksCreation.actions;
+
 export default tasksCreation.reducer;

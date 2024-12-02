@@ -1,0 +1,140 @@
+.task {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  padding: 15px;
+  margin: 10px 0;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  min-height: 120px;
+  max-height: 300px;
+}
+
+.task:active {
+  cursor: grabbing;
+  transform: scale(0.98);
+}
+
+.task:hover {
+  background-color: #fafafa;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.task:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-checkbox {
+  margin-right: 15px;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  accent-color: #5dafe6;
+}
+
+.task-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: flex-start;
+  gap: 0.2rem;
+  max-height: 100%;
+  overflow-y: auto; 
+  word-wrap: break-word; 
+  white-space: normal; 
+  word-break: break-word; 
+}
+
+.task-content::-webkit-scrollbar {
+  opacity: 0;
+}
+
+.task-content h4 {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+  color: #333;
+}
+
+.task-content h3 {
+  font-size: 14px;
+  color: #777;
+  margin: 5px 0;
+}
+
+.task-content p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #777;
+  line-height: 1.4;
+  text-align: justify;
+  word-wrap: break-word; 
+  white-space: normal; 
+  word-break: break-word; 
+}
+
+.checkbox-label {
+  display: none;
+}
+
+.task:hover .task-content h4 {
+  color: #4caf50;
+}
+
+.task-checkbox:hover {
+  transform: scale(1.1);
+}
+
+.deadline-label {
+  color: #ff5722;
+  font-weight: bold;
+}
+
+.desc-label {
+  color: #5dafe6;
+  font-weight: bold;
+}
+
+.task-checkbox:checked + .checkbox-label {
+  background-color: #4caf50;
+}
+
+@media (max-width: 768px) {
+  .task {
+    padding: 12px;
+    flex-direction: column;
+  }
+
+  .task-checkbox {
+    margin-right: 10px;
+  }
+
+  .task-content {
+    padding-right: 10px; 
+    overflow-y: auto; 
+    flex: 1; 
+    word-wrap: break-word; 
+    white-space: normal; 
+    word-break: break-word; 
+  }
+
+  .task-content h4 {
+    font-size: 16px;
+  }
+
+  .task-content h3 {
+    font-size: 12px;
+  }
+
+  .task-content p {
+    font-size: 0.85rem; 
+    text-align: justify;
+    word-wrap: break-word; 
+    word-break: break-word; 
+    white-space: normal; 
+    overflow-y: auto; 
+  }
+}
