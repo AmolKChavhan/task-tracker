@@ -85,6 +85,7 @@ const TaskForm = ({ onClose, taskId, setNotification }) => {
             <label htmlFor="date">Date</label>
             <input
               type="date"
+              placeholder="Select Date"
               value={deadline}
               onChange={(e) => setDeadline(e.target.value)}
             />
