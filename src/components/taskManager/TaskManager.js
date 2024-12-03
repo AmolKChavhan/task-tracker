@@ -15,6 +15,7 @@ const TaskManager = () => {
   const { boards, tasks, selectedTasks } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
+  const [draggingTaskId, setDraggingTaskId] = useState(null);
 
   useEffect(() => {
     dispatch(setSelectedTasks([]));
@@ -35,22 +36,46 @@ const TaskManager = () => {
     dispatch(setSelectedTasks([]));
   };
 
+  // Mouse Events
   const handleDragStart = (e, taskId) => {
     e.dataTransfer.setData("taskId", taskId);
+    setDraggingTaskId(taskId);
   };
 
   const handleDrop = (e, boardId) => {
-    const taskId = e.dataTransfer.getData("taskId");
+    const taskId = e.dataTransfer.getData("taskId") || draggingTaskId;
     const task = tasks.find((task) => task.id === taskId);
 
     if (task && task.boardId !== boardId) {
       dispatch(updateTaskBoard({ taskId, newBoardId: boardId }));
     }
+    setDraggingTaskId(null);
     e.preventDefault();
   };
 
   const handleDragOver = (e) => {
     e.preventDefault();
+  };
+
+  // Touch Events
+  const handleTouchStart = (taskId) => {
+    setDraggingTaskId(taskId);
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+  };
+
+  const handleTouchEnd = (boardId) => {
+    if (draggingTaskId) {
+      const task = tasks.find((task) => task.id === draggingTaskId);
+      if (task && task.boardId !== boardId) {
+        dispatch(
+          updateTaskBoard({ taskId: draggingTaskId, newBoardId: boardId })
+        );
+      }
+    }
+    setDraggingTaskId(null);
   };
 
   const handleModalOpen = () => {
@@ -104,6 +129,9 @@ const TaskManager = () => {
             handleDragStart={handleDragStart}
             handleDrop={handleDrop}
             handleDragOver={handleDragOver}
+            handleTouchStart={handleTouchStart}
+            handleTouchMove={handleTouchMove}
+            handleTouchEnd={() => handleTouchEnd(board.id)}
           />
         ))}
       </div>

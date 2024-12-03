@@ -1,13 +1,21 @@
 import "./Task.css";
 
-const Task = ({ task, onCheckboxChange, isChecked, handleDragStart }) => {
+const Task = ({
+  task,
+  onCheckboxChange,
+  isChecked,
+  handleDragStart,
+  handleTouchStart,
+  handleTouchMove,
+}) => {
   if (!task) return null;
-
   return (
     <div
       className="task"
       draggable
       onDragStart={(e) => handleDragStart(e, task.id)}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
     >
       <input
         type="checkbox"
