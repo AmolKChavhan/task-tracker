@@ -46,6 +46,14 @@
   border-color: var(--success-color);
 }
 
+.task-checkbox:hover {
+  transform: scale(1.1);
+}
+
+.task-checkbox:focus {
+  outline: 2px solid var(--success-color);
+}
+
 .task-content {
   display: flex;
   flex-direction: column;
@@ -118,7 +126,6 @@
 @media (max-width: 768px) {
   .task {
     padding: 1rem;
-    flex-direction: column;
   }
 
   .task-checkbox {
