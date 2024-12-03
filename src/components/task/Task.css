@@ -2,14 +2,26 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  padding: 15px;
-  margin: 10px 0;
-  background-color: #f9f9f9;
+  padding: 1rem;
+  margin: 0.5rem 0;
+  background-color: var(--bg-primary-color);
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
   min-height: 120px;
   max-height: 300px;
+}
+
+.task:focus {
+  outline: 2px solid var(--success-color);
+  box-shadow: 0 0 10px var(--success-hover);
+}
+
+.task:hover {
+  cursor: pointer;
+  background-color: var(--bg-primary-color);
+  box-shadow: 0 4px 10px var(--bg-secondary-color);
+  transform: translateY(-5px);
 }
 
 .task:active {
@@ -17,22 +29,29 @@
   transform: scale(0.98);
 }
 
-.task:hover {
-  background-color: #fafafa;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-
-.task:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
 .task-checkbox {
-  margin-right: 15px;
+  margin-right: 1rem;
   cursor: pointer;
   width: 20px;
   height: 20px;
-  accent-color: #5dafe6;
+  accent-color: var(--secondary-hover);
+  border-radius: 50%;
+  background-color: var(--bg-primary-color);
+  border: 2px solid var(--secondary-hover);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.task-checkbox:checked {
+  background-color: var(--success-hover);
+  border-color: var(--success-color);
+}
+
+.task-checkbox:hover {
+  transform: scale(1.1);
+}
+
+.task-checkbox:focus {
+  outline: 2px solid var(--success-color);
 }
 
 .task-content {
@@ -42,10 +61,11 @@
   justify-content: flex-start;
   gap: 0.2rem;
   max-height: 100%;
-  overflow-y: auto; 
-  word-wrap: break-word; 
-  white-space: normal; 
-  word-break: break-word; 
+  overflow-y: auto;
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: break-word;
+  transition: background-color 0.3s ease;
 }
 
 .task-content::-webkit-scrollbar {
@@ -53,88 +73,82 @@
 }
 
 .task-content h4 {
-  font-size: 18px;
+  font-size: clamp(1rem, 2vw + 1rem, 1.5rem);
   font-weight: bold;
   margin: 0;
-  color: #333;
+  color: var(--primary-text-color);
 }
 
 .task-content h3 {
-  font-size: 14px;
-  color: #777;
+  font-size: 0.9rem;
+  color: var(--disabled-text);
   margin: 5px 0;
 }
 
 .task-content p {
   margin: 0;
-  font-size: 0.875rem;
-  color: #777;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  color: var(--disabled-text);
+  line-height: 1.6;
   text-align: justify;
-  word-wrap: break-word; 
-  white-space: normal; 
-  word-break: break-word; 
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  overflow-y: auto;
+}
+
+.task-content:hover {
+  background-color: var(--bg-primary-color);
+}
+
+.task:hover .task-content h4 {
+  color: var(--success-color);
+}
+
+.deadline-label {
+  color: var(--error-color);
+  font-weight: bold;
+}
+
+.desc-label {
+  color: var(--secondary-hover);
+  font-weight: bold;
 }
 
 .checkbox-label {
   display: none;
 }
 
-.task:hover .task-content h4 {
-  color: #4caf50;
-}
-
-.task-checkbox:hover {
-  transform: scale(1.1);
-}
-
-.deadline-label {
-  color: #ff5722;
-  font-weight: bold;
-}
-
-.desc-label {
-  color: #5dafe6;
-  font-weight: bold;
-}
-
 .task-checkbox:checked + .checkbox-label {
-  background-color: #4caf50;
+  background-color: var(--success-color);
 }
 
 @media (max-width: 768px) {
   .task {
-    padding: 12px;
+    padding: 1rem;
     flex-direction: column;
   }
 
   .task-checkbox {
-    margin-right: 10px;
+    margin-right: 0.5rem;
   }
 
   .task-content {
-    padding-right: 10px; 
-    overflow-y: auto; 
-    flex: 1; 
-    word-wrap: break-word; 
-    white-space: normal; 
-    word-break: break-word; 
+    padding-right: 10px;
+    overflow-y: auto;
+    flex: 1;
   }
 
   .task-content h4 {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .task-content h3 {
-    font-size: 12px;
+    font-size: 0.85rem;
   }
 
   .task-content p {
-    font-size: 0.85rem; 
-    text-align: justify;
-    word-wrap: break-word; 
-    word-break: break-word; 
-    white-space: normal; 
-    overflow-y: auto; 
+    font-size: 0.8rem;
+    line-height: 1.6;
   }
 }

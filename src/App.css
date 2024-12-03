@@ -1,27 +1,46 @@
 :root {
   --primary-color: #007bff;
-  --secondary-color: #4caf50;
+  --primary-text-color: #333;
+  --bg-primary-color: #f4f4f4;
+  --bg-secondary-color: rgba(0, 0, 0, 0.5);
+  --primary-hover: #0056b3;
+  --secondary-hover: #5dafe6;
+  --success-color: #4caf50;
+  --success-hover: #388e3c;
   --error-color: red;
-  --hover-color: #0056b3;
+  --error-hover: #d32f2f;
   --disabled-color: #ccc;
-  --background-color: #f4f4f4;
+  --disabled-text: #666;
+  --focus-outline: rgba(0, 123, 255, 0.6);
 }
 
 * {
-  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Cambria", "Cochin", "Georgia", "Times", "Times New Roman", serif;
   scroll-behavior: smooth;
 }
+
+html,
+body {
+  height: 100%;
+  font-size: 16px;
+}
+
 .app {
+  display: flex;
+  flex-direction: column;
   background-image: url("./assets/bg-image.jpg");
+  background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 main {
   flex-grow: 1;
   padding: 20px;
   overflow-y: auto;
+  margin-top: 30px;
 }

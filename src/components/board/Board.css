@@ -1,24 +1,28 @@
 .board {
   background-color: var(--disabled-color);
-  border: 1px solid #ccc;
+  border: 1px solid var(--disabled-text);
   border-radius: 8px;
   padding: 1.5rem;
   min-height: 30rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  width: 20rem;
+  box-shadow: 0 2px 8px var(--bg-secondary-color);
   display: flex;
   flex-direction: column;
-  transition: box-shadow 0.3s ease;
-  width: 20rem;
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
 }
 
 .board:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 16px var(--bg-secondary-color);
+  transform: scale(1.02);
 }
 
 .board h2 {
   margin-bottom: 1rem;
   font-size: 1.5rem;
   text-align: center;
+  color: var(--primary-text-color);
+  font-weight: bold;
 }
 
 .task-list {
@@ -28,12 +32,15 @@
 }
 
 .board.droppable-over {
-  background-color: var(--background-color);
+  background-color: var(--bg-primary-color);
+  border-color: var(--success-color);
 }
 
 @media (max-width: 768px) {
   .board {
     min-height: 25rem;
+    width: 100%;
+    max-width: 100%;
   }
 
   .board h2 {
@@ -43,4 +50,12 @@
   .task-list {
     gap: 0.8rem;
   }
+}
+
+.board:focus-within {
+  outline: 2px solid var(--success-color);
+}
+
+.board:focus-visible {
+  outline: 2px solid var(--success-color);
 }

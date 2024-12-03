@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--bg-secondary-color);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,13 +12,12 @@
 }
 
 .modal {
-  background-color: white;
-  color: #333333;
-  padding: 20px;
+  background-color: var(--bg-primary-color);
+  padding: 1.25rem;
   border-radius: 8px;
   width: 400px;
   max-width: 90%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px var(--bg-secondary-color);
   position: relative;
   overflow: hidden;
 }
@@ -27,24 +26,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .modal-header h3 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #333;
 }
 
 .close-icon {
   cursor: pointer;
   font-size: 1.5rem;
-  color: #888;
+  color: var(--disabled-text);
+  transition: color 0.3s ease;
 }
 
 .close-icon:hover {
-  color: #333;
+  color: var(--primary-text-color);
 }
 
 form {
@@ -53,32 +52,33 @@ form {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 1rem;
 }
 
 label {
   font-size: 1rem;
-  color: #555;
-  margin-bottom: 5px;
+  color: var(--primary-text-color);
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 input[type="text"],
 input[type="date"],
 textarea {
   width: 100%;
-  padding: 10px;
+  padding: 0.625rem;
   font-size: 1rem;
-  border: 1px solid #ddd;
+  border: 1px solid var(--disabled-color);
   border-radius: 4px;
   box-sizing: border-box;
-  margin-top: 5px;
+  margin-top: 0.5rem;
   transition: border-color 0.3s ease;
 }
 
 input[type="text"]:focus,
 input[type="date"]:focus,
 textarea:focus {
-  border-color: #007bff;
+  border-color: var(--primary-color);
   outline: none;
 }
 
@@ -88,10 +88,10 @@ textarea {
 }
 
 button[type="submit"] {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--primary-color);
+  color: var(--bg-primary-color);
   border: none;
-  padding: 10px;
+  padding: 0.625rem;
   font-size: 1rem;
   font-weight: bold;
   border-radius: 4px;
@@ -100,34 +100,34 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-  background-color: #0056b3;
+  background-color: var(--primary-hover);
 }
 
 .buttons {
   display: flex;
   justify-content: flex-end;
-  margin-top: 20px;
+  margin-top: 1.25rem;
 }
 
 .buttons button {
-  padding: 10px 15px;
-  background-color: #28a745;
+  padding: 0.625rem 0.9375rem;
+  background-color: var(--success-color);
   border: none;
   border-radius: 4px;
-  color: white;
+  color: var(--bg-primary-color);
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .buttons button:hover {
-  background-color: #218838;
+  background-color: var(--success-hover);
 }
 
 @media (max-width: 768px) {
   .modal {
     width: 90%;
-    padding: 15px;
+    padding: 1rem;
     max-width: 95%;
   }
 
@@ -147,16 +147,16 @@ button[type="submit"]:hover {
   input[type="date"],
   textarea {
     font-size: 0.875rem;
-    padding: 8px;
+    padding: 0.5rem;
   }
 
   button[type="submit"] {
-    padding: 12px;
-    font-size: 1.125rem;
+    padding: 0.75rem;
+    font-size: 1rem;
   }
 
   .buttons button {
-    padding: 10px 20px;
-    font-size: 1rem;
+    padding: 0.625rem 1rem;
+    font-size: 0.9375rem;
   }
 }
