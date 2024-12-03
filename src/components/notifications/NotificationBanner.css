@@ -1,0 +1,53 @@
+.notification-banner {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  color: var(--bg-primary-color);
+  z-index: 1000;
+  animation: fadeIn 0.5s, fadeOut 0.5s 1.5s;
+  max-width: 90%;
+}
+
+.notification-banner.success {
+  background-color: var(--success-color);
+}
+
+.notification-banner.error {
+  background-color: var(--error-color);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .notification-banner {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .notification-banner {
+    padding: 0.6rem 0.9rem;
+    font-size: 0.8rem;
+  }
+}

@@ -10,12 +10,14 @@ import {
 } from "../../redux/initialState";
 import "./TaskManager.css";
 import { FaEdit, FaPlus, FaTrashAlt } from "react-icons/fa";
+import NotificationBanner from "../notifications/NotificationBanner";
 
 const TaskManager = () => {
   const { boards, tasks, selectedTasks } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
   const [draggingTaskId, setDraggingTaskId] = useState(null);
+  const [notification, setNotification] = useState(null); // Manage notification state
 
   useEffect(() => {
     dispatch(setSelectedTasks([]));
@@ -30,10 +32,18 @@ const TaskManager = () => {
   };
 
   const handleDeleteTask = () => {
-    selectedTasks.forEach((taskId) => {
-      dispatch(deleteTask(taskId));
-    });
-    dispatch(setSelectedTasks([]));
+    try {
+      selectedTasks.forEach((taskId) => {
+        dispatch(deleteTask(taskId));
+      });
+      dispatch(setSelectedTasks([]));
+      setNotification({
+        message: "Task(s) deleted successfully!",
+        type: "success",
+      });
+    } catch (error) {
+      setNotification({ message: "Failed to delete task(s).", type: "error" });
+    }
   };
 
   // Mouse Events
@@ -91,6 +101,14 @@ const TaskManager = () => {
 
   return (
     <div id="task-manager">
+      {notification && (
+        <NotificationBanner
+          message={notification.message}
+          type={notification.type}
+          onClose={() => setNotification(null)}
+        />
+      )}
+
       <div className="task-actions">
         <Button
           onClick={() => setModalOpen(true)}
@@ -137,7 +155,11 @@ const TaskManager = () => {
       </div>
 
       {isModalOpen && (
-        <TaskForm onClose={handleModalClose} taskId={selectedTasks[0]} />
+        <TaskForm
+          onClose={handleModalClose}
+          taskId={selectedTasks.length === 1 ? selectedTasks[0] : null}
+          setNotification={setNotification}
+        />
       )}
     </div>
   );

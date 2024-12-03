@@ -4,7 +4,7 @@ import { addTask, editTask } from "../../redux/initialState";
 import { FaTimes } from "react-icons/fa";
 import "./TaskForm.css";
 
-const TaskForm = ({ onClose, taskId }) => {
+const TaskForm = ({ onClose, taskId, setNotification }) => {
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.tasks.tasks);
 
@@ -22,10 +22,11 @@ const TaskForm = ({ onClose, taskId }) => {
       setDescription(task.description || "");
       setDeadline(task.deadline || "");
     }
-  }, [taskId, task.title, task.description, task.deadline]);
+  }, [taskId, task]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newTask = {
       id: taskId || Date.now().toString(),
       title,
@@ -35,15 +36,28 @@ const TaskForm = ({ onClose, taskId }) => {
       boardId: taskId ? task.boardId : "1",
     };
 
-    console.log("newTask to be dispatched:", newTask);
-
     if (taskId) {
-      console.log("Dispatching editTask");
-      dispatch(editTask({ taskId, updatedTask: newTask }));
+      try {
+        dispatch(editTask({ taskId, updatedTask: newTask }));
+        setNotification({
+          message: "Task updated successfully!",
+          type: "success",
+        });
+      } catch (error) {
+        setNotification({ message: "Failed to update task.", type: "error" });
+      }
     } else {
-      console.log("Dispatching addTask");
-      dispatch(addTask(newTask));
+      try {
+        dispatch(addTask(newTask));
+        setNotification({
+          message: "Task added successfully!",
+          type: "success",
+        });
+      } catch (error) {
+        setNotification({ message: "Failed to add task.", type: "error" });
+      }
     }
+
     onClose();
   };
 
@@ -68,7 +82,7 @@ const TaskForm = ({ onClose, taskId }) => {
             />
           </div>
           <div className="form-group">
-          <label htmlFor="date">Date</label>
+            <label htmlFor="date">Date</label>
             <input
               type="date"
               value={deadline}
