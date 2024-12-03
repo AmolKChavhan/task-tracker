@@ -20,7 +20,6 @@
 
   .boards-container {
     gap: 1rem;
-    justify-content: flex-start;
   }
 }
 

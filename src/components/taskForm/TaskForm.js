@@ -57,7 +57,7 @@ const TaskForm = ({ onClose, taskId }) => {
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="name">Title</label>
+            <label htmlFor="title">Title</label>
             <input
               type="text"
               id="title"
@@ -68,6 +68,7 @@ const TaskForm = ({ onClose, taskId }) => {
             />
           </div>
           <div className="form-group">
+          <label htmlFor="date">Date</label>
             <input
               type="date"
               value={deadline}

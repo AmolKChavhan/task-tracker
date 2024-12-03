@@ -9,7 +9,6 @@
   flex-direction: column;
   transition: box-shadow 0.3s ease;
   width: 20rem;
- 
 }
 
 .board:hover {
@@ -29,7 +28,7 @@
 }
 
 .board.droppable-over {
-  background-color: #f0f8ff;
+  background-color: var(--background-color);
 }
 
 @media (max-width: 768px) {

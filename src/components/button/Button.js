@@ -1,16 +1,20 @@
-import './Button.css'; 
+import "./Button.css";
 
 const Button = ({
   onClick,
   children,
-  type = 'default', 
+  type = "default",
   disabled = false,
-  className = '',
+  className = "",
+  icon: Icon,
 }) => {
-  const buttonClass = `button ${type} ${disabled ? 'disabled' : ''} ${className}`;
+  const buttonClass = `button ${type} ${
+    disabled ? "disabled" : ""
+  } ${className}`;
 
   return (
     <button onClick={onClick} className={buttonClass} disabled={disabled}>
+      {Icon && <Icon />}
       {children}
     </button>
   );

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "../button/Button";
 import TaskForm from "../taskForm/TaskForm";
 import Board from "../board/Board";
@@ -9,11 +9,16 @@ import {
   deleteTask,
 } from "../../redux/initialState";
 import "./TaskManager.css";
+import { FaEdit, FaPlus, FaTrashAlt } from "react-icons/fa";
 
 const TaskManager = () => {
   const { boards, tasks, selectedTasks } = useSelector((state) => state.tasks);
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    dispatch(setSelectedTasks([]));
+  }, [dispatch]);
 
   const handleCheckboxChange = (taskId) => {
     if (selectedTasks.includes(taskId)) {
@@ -60,19 +65,21 @@ const TaskManager = () => {
   };
 
   return (
-    <>
+    <div id="task-manager">
       <div className="task-actions">
         <Button
           onClick={() => setModalOpen(true)}
           type="add"
           disabled={selectedTasks.length > 0}
+          icon={FaPlus}
         >
-          + Add Task
+          Add Task
         </Button>
         <Button
           onClick={handleModalOpen}
           type="edit"
           disabled={selectedTasks.length !== 1}
+          icon={FaEdit}
         >
           Edit Task
         </Button>
@@ -80,6 +87,7 @@ const TaskManager = () => {
           onClick={handleDeleteTask}
           type="delete"
           disabled={selectedTasks.length === 0}
+          icon={FaTrashAlt}
         >
           Delete Task
         </Button>
@@ -103,7 +111,7 @@ const TaskManager = () => {
       {isModalOpen && (
         <TaskForm onClose={handleModalClose} taskId={selectedTasks[0]} />
       )}
-    </>
+    </div>
   );
 };
 

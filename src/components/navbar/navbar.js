@@ -1,9 +1,11 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { FaBars, FaTimes } from "react-icons/fa";
 import "./navbar.css";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const openMenu = () => {
     setIsMenuOpen(true);
@@ -11,6 +13,11 @@ const Navbar = () => {
 
   const closeMenu = () => {
     setIsMenuOpen(false);
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+    closeMenu();
   };
 
   return (
@@ -21,13 +28,19 @@ const Navbar = () => {
       <ul className={`nav-links ${isMenuOpen ? "open" : ""}`}>
         <FaTimes className="navCloseBtn" onClick={closeMenu} />
         <li>
-          <button className="nav-link">Home</button>
+          <button className="nav-link" onClick={() => handleNavigation("/")}>
+            Home
+          </button>
         </li>
         <li>
-          <button className="nav-link">About Us</button>
+          <button className="nav-link" onClick={() => handleNavigation("/about")}>
+            About Us
+          </button>
         </li>
         <li>
-          <button className="nav-link">Contact Us</button>
+          <button className="nav-link" onClick={() => handleNavigation("/contactus")}>
+            Contact Us
+          </button>
         </li>
       </ul>
     </nav>
