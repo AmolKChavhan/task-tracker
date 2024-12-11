@@ -108,11 +108,11 @@ const TaskForm = ({ onClose, taskId, setNotification }) => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="update">Task Update Info</label>
+            <label htmlFor="update">Task Updates</label>
             <textarea
               id="update"
-              rows="2"
-              placeholder="Task Update Info"
+              rows="1"
+              placeholder="Task Updates"
               value={update}
               onChange={(e) => setUpdate(e.target.value)}
             />

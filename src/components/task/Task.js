@@ -43,7 +43,7 @@ const Task = ({
         </span>
         {title === "In Progress" && (
           <span className="update-label">
-            Task Update Info:
+            Task Updates:
             <p>{task.update}</p>
           </span>
         )}
