@@ -115,6 +115,11 @@
   font-weight: bold;
 }
 
+.update-label {
+  color: var(--success-hover);
+  font-weight: bold;
+}
+
 .checkbox-label {
   display: none;
 }

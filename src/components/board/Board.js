@@ -28,6 +28,7 @@ const Board = ({
           <Task
             key={task.id}
             task={task}
+            boards={boards}
             onCheckboxChange={onCheckboxChange}
             isChecked={selectedTasks.includes(task.id)}
             handleDragStart={handleDragStart}

@@ -17,7 +17,7 @@ const TaskManager = () => {
   const dispatch = useDispatch();
   const [isModalOpen, setModalOpen] = useState(false);
   const [draggingTaskId, setDraggingTaskId] = useState(null);
-  const [notification, setNotification] = useState(null); // Manage notification state
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     dispatch(setSelectedTasks([]));
@@ -32,17 +32,20 @@ const TaskManager = () => {
   };
 
   const handleDeleteTask = () => {
+    if (!selectedTasks.length) return;
+
     try {
-      selectedTasks.forEach((taskId) => {
-        dispatch(deleteTask(taskId));
-      });
+      selectedTasks.forEach((taskId) => dispatch(deleteTask(taskId)));
       dispatch(setSelectedTasks([]));
       setNotification({
-        message: "Task(s) deleted successfully!",
+        message: `${selectedTasks.length} task(s) deleted successfully!`,
         type: "success",
       });
     } catch (error) {
-      setNotification({ message: "Failed to delete task(s).", type: "error" });
+      setNotification({
+        message: "Failed to delete task(s). Please try again.",
+        type: "error",
+      });
     }
   };
 
@@ -54,6 +57,7 @@ const TaskManager = () => {
 
   const handleDrop = (e, boardId) => {
     const taskId = e.dataTransfer.getData("taskId") || draggingTaskId;
+    if (!taskId) return;
     const task = tasks.find((task) => task.id === taskId);
 
     if (task && task.boardId !== boardId) {
@@ -73,6 +77,7 @@ const TaskManager = () => {
   };
 
   const handleTouchMove = (e) => {
+    if (!draggingTaskId) return;
     e.preventDefault();
   };
 
@@ -121,7 +126,11 @@ const TaskManager = () => {
         <Button
           onClick={handleModalOpen}
           type="edit"
-          disabled={selectedTasks.length !== 1}
+          disabled={
+            selectedTasks.length !== 1 
+            // ||
+            // boards.some((board) => board.title === "Done")
+          }
           icon={FaEdit}
         >
           Edit Task

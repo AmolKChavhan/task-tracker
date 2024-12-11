@@ -1,6 +1,8 @@
+import React, { memo } from "react";
 import "./Task.css";
 
 const Task = ({
+  boards,
   task,
   onCheckboxChange,
   isChecked,
@@ -8,7 +10,10 @@ const Task = ({
   handleTouchStart,
   handleTouchMove,
 }) => {
-  if (!task) return null;
+  if (!task || !boards) return null;
+
+  const { title } = boards;
+
   return (
     <div
       className="task"
@@ -17,13 +22,15 @@ const Task = ({
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
     >
-      <input
-        type="checkbox"
-        checked={isChecked}
-        onChange={() => onCheckboxChange(task.id)}
-        className="task-checkbox"
-        id={`checkbox-${task.id}`}
-      />
+      {title !== "Done" && (
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={() => onCheckboxChange(task.id)}
+          className="task-checkbox"
+          id={`checkbox-${task.id}`}
+        />
+      )}
       <label htmlFor={`checkbox-${task.id}`} className="checkbox-label" />
       <div className="task-content">
         <h4>{task.title}</h4>
@@ -34,9 +41,15 @@ const Task = ({
           Description:
           <p>{task.description}</p>
         </span>
+        {title === "In Progress" && (
+          <span className="update-label">
+            Task Update Info:
+            <p>{task.update}</p>
+          </span>
+        )}
       </div>
     </div>
   );
 };
 
-export default Task;
+export default memo(Task);
